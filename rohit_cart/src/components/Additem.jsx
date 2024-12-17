@@ -11,7 +11,7 @@ class AddItem extends Component {
     render() { 
         return (<form className='row mb-5' onSubmit={(e)=>{
             e.preventDefault();
-            this.props.addItem(this.state.productName,this.state.productPrice);
+            this.props.addItem(this.state.productName,Number(this.state.productPrice));
         }}>
             <div className="mb-3 col-4">
               <label htmlFor="inputName" className="form-label">
@@ -36,7 +36,7 @@ class AddItem extends Component {
                 className="form-control"
                 id="ItemPrice"
                 name="productPrice"
-                onChange={(e)=>{this.setState({productPrice: e.currentTarget.value})}}
+                onChange={(e)=>{this.setState({productPrice: Number(e.currentTarget.value)})}}
                 value={this.state.productPrice}
               />
             </div>
