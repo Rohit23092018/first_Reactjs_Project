@@ -50,12 +50,21 @@ const Main = () => {
     setProductList(newProductList);
     setTotalAmount(0);
   }
+
+  const removeItem=(index)=>{
+    let newProductList = [...productList];
+    let newTotalAmount = totalAmount;
+    newTotalAmount -= newProductList[index].quantity * newProductList[index].price
+    newProductList.splice(index,1);
+    setProductList(newProductList);
+    setTotalAmount(newTotalAmount);
+  }
   return (
     <>
       <Navbar />
       <main className='container mt-5'>
         {/* Pass the product list and increment function as props */}
-        <ProductList productList={productList} increamentQuantity={increamentQuantity} decreamentQuantity={decreamentQuantity} />
+        <ProductList productList={productList} increamentQuantity={increamentQuantity} decreamentQuantity={decreamentQuantity} removeItem={removeItem} />
       </main>
       {/* Pass totalAmount to Footer */}
       <Footer totalAmount={totalAmount} resetQuantity={resetQuantity}/>
