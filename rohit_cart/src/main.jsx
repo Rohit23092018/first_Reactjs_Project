@@ -1,8 +1,8 @@
-import { StrictMode, useState } from 'react'
-import { createRoot } from 'react-dom/client'
-import Navbar from './components/navbar.jsx'
-import ProductList from './components/ProductList.jsx'
-import Footer from './components/Footer.jsx'
+import { StrictMode, useState } from 'react';
+import { createRoot } from 'react-dom/client';
+import Navbar from './components/navbar.jsx';
+import ProductList from './components/ProductList.jsx';
+import Footer from './components/Footer.jsx';
 
 const initialproductList = [
   {
@@ -19,17 +19,26 @@ const initialproductList = [
 
 const Main = () => {
   // Initialize state with the initial product list
-  const [productList, setProductList] = useState(initialproductList);
+  let [productList, setProductList] = useState(initialproductList);
+  let [totalAmount, setTotalAmount] = useState(0);
 
   const increamentQuantity = (index) => {
     let newProductList = [...productList];
+    let newTotalAmount = totalAmount;
     newProductList[index].quantity++;
+    newTotalAmount = newTotalAmount + newProductList[index].price;
+    setTotalAmount(newTotalAmount);
     setProductList(newProductList);
   };
 
   const decreamentQuantity = (index) => {
     let newProductList = [...productList];
-    newProductList[index].quantity > 0 ? newProductList[index].quantity-- : newProductList[index].quantity=0 
+    let newTotalAmount = totalAmount;
+    if (newProductList[index].quantity > 0) {
+      newProductList[index].quantity--;
+      newTotalAmount = newTotalAmount - newProductList[index].price;
+    }
+    setTotalAmount(newTotalAmount);
     setProductList(newProductList);
   };
 
@@ -40,6 +49,8 @@ const Main = () => {
         {/* Pass the product list and increment function as props */}
         <ProductList productList={productList} increamentQuantity={increamentQuantity} decreamentQuantity={decreamentQuantity} />
       </main>
+      {/* Pass totalAmount to Footer */}
+      <Footer totalAmount={totalAmount} />
     </>
   );
 };
@@ -47,6 +58,5 @@ const Main = () => {
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <Main />
-    <Footer />
   </StrictMode>
 );
