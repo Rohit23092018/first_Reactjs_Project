@@ -1,39 +1,47 @@
+import React, { Component } from 'react';
 class AddItem extends Component {
+    constructor(props){
+        super(props);
+        this.state={
+            productName:"",
+            productPrice:0
+        }
+    }
     state = {  } 
     render() { 
-        return (<form>
-            <div className="mb-3">
-              <label htmlFor="exampleInputEmail1" className="form-label">
-                Email address
+        return (<form className='row mb-5' onSubmit={(e)=>{
+            e.preventDefault();
+            this.props.addItem(this.state.productName,this.state.productPrice);
+        }}>
+            <div className="mb-3 col-4">
+              <label htmlFor="inputName" className="form-label">
+                Item Name
               </label>
               <input
-                type="email"
+                type="text"
                 className="form-control"
-                id="exampleInputEmail1"
-                aria-describedby="emailHelp"
+                id="inputName"
+                aria-describedby="ItemName"
+                name="productName"
+                onChange={(e)=>{this.setState({productName: e.currentTarget.value})}}
+                value={this.state.productName}
               />
-              <div id="emailHelp" className="form-text">
-                We'll never share your email with anyone else.
-              </div>
             </div>
-            <div className="mb-3">
-              <label htmlFor="exampleInputPassword1" className="form-label">
-                Password
+            <div className="mb-3 col-4">
+              <label htmlFor="inputPrice" className="form-label">
+                Price
               </label>
               <input
-                type="password"
+                type="number"
                 className="form-control"
-                id="exampleInputPassword1"
+                id="ItemPrice"
+                name="productPrice"
+                onChange={(e)=>{this.setState({productPrice: e.currentTarget.value})}}
+                value={this.state.productPrice}
               />
             </div>
-            <div className="mb-3 form-check">
-              <input type="checkbox" className="form-check-input" id="exampleCheck1" />
-              <label className="form-check-label" htmlFor="exampleCheck1">
-                Check me out
-              </label>
-            </div>
-            <button type="submit" className="btn btn-primary">
-              Submit
+            <button type="submit" className="btn btn-primary col-4">
+              Add
             </button>
           </form>
           );

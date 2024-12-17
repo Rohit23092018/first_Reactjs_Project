@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import Navbar from './components/navbar.jsx';
 import ProductList from './components/ProductList.jsx';
 import Footer from './components/Footer.jsx';
+import AddItem from './components/Additem.jsx';
 
 const initialproductList = [
   {
@@ -59,10 +60,21 @@ const Main = () => {
     setProductList(newProductList);
     setTotalAmount(newTotalAmount);
   }
+
+  const addItem=(name,price)=>{
+    let newProductList = [...productList];
+    newProductList.push({
+      name: name,
+      price: price,
+      quantity: 0
+    });
+    setProductList(newProductList);
+  }
   return (
     <>
       <Navbar />
       <main className='container mt-5'>
+        <AddItem addItem={addItem}/>
         {/* Pass the product list and increment function as props */}
         <ProductList productList={productList} increamentQuantity={increamentQuantity} decreamentQuantity={decreamentQuantity} removeItem={removeItem} />
       </main>
