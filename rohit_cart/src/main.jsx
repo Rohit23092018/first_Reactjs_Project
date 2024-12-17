@@ -42,6 +42,14 @@ const Main = () => {
     setProductList(newProductList);
   };
 
+  const resetQuantity = () =>{
+    let newProductList = [...productList];
+    newProductList.map((initialproductList)=>{
+      initialproductList.quantity=0
+    })
+    setProductList(newProductList);
+    setTotalAmount(0);
+  }
   return (
     <>
       <Navbar />
@@ -50,7 +58,7 @@ const Main = () => {
         <ProductList productList={productList} increamentQuantity={increamentQuantity} decreamentQuantity={decreamentQuantity} />
       </main>
       {/* Pass totalAmount to Footer */}
-      <Footer totalAmount={totalAmount} />
+      <Footer totalAmount={totalAmount} resetQuantity={resetQuantity}/>
     </>
   );
 };
